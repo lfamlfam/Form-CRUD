@@ -1,8 +1,8 @@
 <?php
-$dbhost = "i9yueekhr9.database.windows.net";
-$db = "Imaginario";
-$user = "TSI@i9yueekhr9.database.windows.net";
-$password = "SistemasInternet123";
+$dbhost = "IP ou nome do servidor";
+$db = "nome do banco";
+$user = "user@servidor";
+$password = "Senha";
 $dsn = "Driver={SQL Server};Server=$dbhost;Port=1433;Database=$db;";
                
 $connect = odbc_connect($dsn,$user,$password);
