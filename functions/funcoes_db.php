@@ -8,7 +8,7 @@ ini_set('error_reporting', E_ALL);
 define(DB_HOST,'127.0.0.1');
 define(DB_NOME,'PI');
 define(DB_USUARIO,'root');
-define(DB_SENHA,'s13q79l46');
+define(DB_SENHA,'senha');
 define(DB_DSN,'Driver=MySQL;Server='.DB_HOST.';Database='.DB_NOME.';');
                
 $db_resource = odbc_connect(DB_DSN,DB_USUARIO,DB_SENHA);
