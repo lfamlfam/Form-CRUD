@@ -34,13 +34,38 @@
   <ul class="nav nav-tabs">
     <li><a href="index.php"><i class="icon-home"></i> In&iacute;cio</a></li>
     <li><a href="pagina1.php">P&aacute;gina 1</a></li>
-    <li class="active"><a href="#">P&aacute;gina 2</a></li>
+    <li class="active"><a href="#">Imagem (Upload/DB)</a></li>
 	<li><a href="crud_usuario.php">CRUD Usu&aacute;rio</a></li>
   </ul>
   <br><br>
   <div class="row">
     <div class="col-md-12">
-      <p>Conte&uacute;do p&aacute;gina 2</p>
+		<?php
+		if($msg_sucesso){
+			echo "<div class='alert alert-success'>
+						<strong> $msg_sucesso </strong>
+					</div>";
+		}
+		if($msg_erro){
+			echo "<div class='alert alert-danger'>
+						<strong> $msg_erro </strong>
+					</div>";
+		}
+		?>
+		<h1>Upload do Arquivo</h1>
+		<form action="pagina2.php" method="post" enctype="multipart/form-data"><br><br>
+			<input type="file" name="ArquivoUploaded" id="ArquivoUploaded"><br><br>
+			<input type="submit" value="Enviar Imagem" name="submit">
+		</form>
+		<br><br>
+		<?php
+		foreach($produtos as $produto){
+			$file = fopen('imgs/'.$produto['idProduto'].'.jpg','wb');
+			fwrite($file,$produto['imagem']);
+			fclose($file);
+			echo "<img src='imgs/{$produto['idProduto']}.jpg' /><br><br>\n";
+		}
+		?>
     </div>
   </div>
 </div>

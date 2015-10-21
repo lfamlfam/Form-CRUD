@@ -34,7 +34,7 @@
   <ul class="nav nav-tabs">
     <li><a href="index.php"><i class="icon-home"></i> In&iacute;cio</a></li>
     <li class="active"><a href="#">P&aacute;gina 1</a></li>
-    <li><a href="pagina2.php">P&aacute;gina 2</a></li>
+    <li><a href="pagina2.php">Imagem (Upload/DB)</a></li>
 	<li><a href="crud_usuario.php">CRUD Usu&aacute;rio</a></li>
   </ul>
   <br><br>

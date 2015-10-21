@@ -5,10 +5,10 @@ Funções de banco de dados
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
-define('DB_HOST','IP ou Nome do Servidor');
-define('DB_NOME','nome do banco');
-define('DB_USUARIO','Usuário');
-define('DB_SENHA','senha');
+define('DB_HOST','');
+define('DB_NOME','kanino');
+define('DB_USUARIO','TSI');
+define('DB_SENHA','');
 define('DB_DSN','Driver={SQL Server};Server='.DB_HOST.';Port=1433;Database='.DB_NOME.';');
  
 $db_resource = odbc_connect(DB_DSN,DB_USUARIO,DB_SENHA);
