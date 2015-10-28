@@ -58,14 +58,23 @@
 			<input type="submit" value="Enviar Imagem" name="submit">
 		</form>
 		<br><br>
-		<?php
-		foreach($produtos as $produto){
-			$file = fopen('imgs/'.$produto['idProduto'].'.jpg','wb');
-			fwrite($file,$produto['imagem']);
-			fclose($file);
-			echo "<img src='imgs/{$produto['idProduto']}.jpg' /><br><br>\n";
-		}
-		?>
+		<table width='100%'>
+			<thead>
+				<th>Nome</th><th>Pre&ccedil;o</th><th>Foto</th>
+			</thead>
+			<tbody>
+			<?php
+			if(isset($produtos)){
+				foreach($produtos as $produto){
+					echo 	'<tr><td>'.
+							$produto['nomeProduto'].'</td><td>'.
+							number_format($produto['precProduto'],2,',','.').'</td><td>'.
+							'<img src="data:image/jpeg;base64,'.base64_encode($produto['imagem']).'" /></td></tr>'."\n";
+				}
+			}
+			?>
+			</tbody>
+		</table>
     </div>
   </div>
 </div>

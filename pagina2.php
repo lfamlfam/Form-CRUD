@@ -13,42 +13,46 @@ if(!$_SESSION['idUsuario']){
 $msg_erro = '';
 $msg_sucesso = '';
 
-if(	substr($_FILES['ArquivoUploaded']['type'], 0, 5) == 'image' &&
-	$_FILES['ArquivoUploaded']['error'] == 0 &&
-	$_FILES['ArquivoUploaded']['size'] > 0){
+if(isset($_FILES['ArquivoUploaded'])){
+	if(	substr($_FILES['ArquivoUploaded']['type'], 0, 5) == 'image' &&
+		$_FILES['ArquivoUploaded']['error'] == 0 &&
+		($_FILES['ArquivoUploaded']['size'] > 0 && $_FILES['ArquivoUploaded']['size'] < 5464)){
 		//print_r($_FILES);
 		$msg_sucesso = 'Arquivo recebido com sucesso';
 		
 		$file = fopen($_FILES['ArquivoUploaded']['tmp_name'],'rb');
-		$conteudo = fread($file, filesize($_FILES['ArquivoUploaded']['tmp_name']));
-		$fileParaDB = base64_encode($conteudo);
+		$fileParaDB = fread($file, filesize($_FILES['ArquivoUploaded']['tmp_name']));
 		fclose($file);
-
-		if(db_consulta($db_resource,'	INSERT INTO 
-										Produto
-										(nomeProduto,
-										precProduto,
-										idCategoria,
-										ativoProduto,
-										imagem)
-										VALUES
-										('."'".'Teste Imagem'."'".',
-										10.00,
-										12,
-										'.(true).',
-										'."'".$fileParaDB."'".')')){
-			$msg_sucesso .= '<br>Imagem armazenada no DB';
-			
-			$q = db_consulta($db_resource,'SELECT * FROM Produto');
-			while($r = db_le_resultado($q)){
-				$produtos[$r['idProduto']] = $r;
-			}
-			
+		
+		$stmt = db_prepare($db_resource,'INSERT INTO Produto 
+										(nomeProduto, precProduto, idCategoria, ativoProduto, imagem) 
+										VALUES 
+										(?,?,?,?,?)');			 
+		if(db_execute($stmt, array('Teste de Imagem',
+								10.00,
+								1,
+								true,
+								$fileParaDB))){
+									
+			$msg_sucesso .= '<br>Imagem armazenada no DB';					
 		}else{
-			$msg_erro .= 'Erro ao salvar a Imagem no DB';
+			$msg_erro .= 'Erro ao salvar a Imagem no DB.';
 		}		
-}else{
-	$msg_erro = 'S&oacute; s&atilde;o aceitos arquivos de imagem';
+	}else{
+		if($_FILES['ArquivoUploaded']['size'] > 5464){
+			$base = log($_FILES['ArquivoUploaded']['size']) / log(1024);
+			$sufixo = array("", "K", "M", "G", "T");
+			$tam_em_mb = round(pow(1024, $base - floor($base)),2).$sufixo[floor($base)];
+			$msg_erro = 'Tamanho m&aacute;ximo de imagem 5,4K. Tamanho da imagem enviada: '.$tam_em_mb;
+		}else{
+			$msg_erro = 'S&oacute; s&atilde;o aceitos arquivos de imagem. Tamanho da imagem: '.$_FILES['ArquivoUploaded']['size'];
+		}
+	}
+}
+
+$q = db_consulta($db_resource,'SELECT * FROM Produto');
+while($r = db_le_resultado($q)){
+	$produtos[$r['idProduto']] = $r;
 }
 
 include('templates/pagina2_template.php');

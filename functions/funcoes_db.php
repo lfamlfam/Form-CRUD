@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
 define('DB_HOST','');
-define('DB_NOME','kanino');
+define('DB_NOME','juliet');
 define('DB_USUARIO','TSI');
 define('DB_SENHA','');
 define('DB_DSN','Driver={SQL Server};Server='.DB_HOST.';Port=1433;Database='.DB_NOME.';');
