@@ -2,6 +2,9 @@
 /*
 Exemplo página 2
 */
+
+ini_set ('odbc.defaultlrl', 9000000);//muda configuração do PHP para trabalhar com imagens no DB
+
 session_start();
 
 if(!$_SESSION['idUsuario']){
@@ -16,7 +19,7 @@ $msg_sucesso = '';
 if(isset($_FILES['ArquivoUploaded'])){
 	if(	substr($_FILES['ArquivoUploaded']['type'], 0, 5) == 'image' &&
 		$_FILES['ArquivoUploaded']['error'] == 0 &&
-		($_FILES['ArquivoUploaded']['size'] > 0 && $_FILES['ArquivoUploaded']['size'] < 5464)){
+		($_FILES['ArquivoUploaded']['size'] > 0 && $_FILES['ArquivoUploaded']['size'] < 9000000)){
 		//print_r($_FILES);
 		$msg_sucesso = 'Arquivo recebido com sucesso';
 		
@@ -39,11 +42,11 @@ if(isset($_FILES['ArquivoUploaded'])){
 			$msg_erro .= 'Erro ao salvar a Imagem no DB.';
 		}		
 	}else{
-		if($_FILES['ArquivoUploaded']['size'] > 5464){
+		if($_FILES['ArquivoUploaded']['size'] > 9000000){
 			$base = log($_FILES['ArquivoUploaded']['size']) / log(1024);
 			$sufixo = array("", "K", "M", "G", "T");
 			$tam_em_mb = round(pow(1024, $base - floor($base)),2).$sufixo[floor($base)];
-			$msg_erro = 'Tamanho m&aacute;ximo de imagem 5,4K. Tamanho da imagem enviada: '.$tam_em_mb;
+			$msg_erro = 'Tamanho m&aacute;ximo de imagem 9 Mb. Tamanho da imagem enviada: '.$tam_em_mb;
 		}else{
 			$msg_erro = 'S&oacute; s&atilde;o aceitos arquivos de imagem. Tamanho da imagem: '.$_FILES['ArquivoUploaded']['size'];
 		}
