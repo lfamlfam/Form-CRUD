@@ -3,6 +3,10 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 session_start();
 
+/*
+Comentario
+*/
+
 include_once('functions/funcoes_db.php');
 
 if(!isset($_POST['entrar']) && !isset($_SESSION['idUsuario'])){	//Exite a tela de login
