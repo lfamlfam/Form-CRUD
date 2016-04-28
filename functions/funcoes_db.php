@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
 define('DB_HOST','koo2dzw5dy.database.windows.net');
-define('DB_NOME','SenaQuiz');
+define('DB_NOME','');
 define('DB_USUARIO','TSI');
-define('DB_SENHA','SistemasInternet123');
+define('DB_SENHA','');
 define('DB_DSN','Driver={SQL Server};Server='.DB_HOST.';Port=1433;Database='.DB_NOME.';');
  
 $db_resource = odbc_connect(DB_DSN,DB_USUARIO,DB_SENHA);
