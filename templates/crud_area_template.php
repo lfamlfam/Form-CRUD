@@ -34,8 +34,8 @@
   <ul class="nav nav-tabs">
     <li><a href="index.php"><i class="icon-home"></i> In&iacute;cio</a></li>
     <li><a href="pagina1.php">P&aacute;gina 1</a></li>
-    <li class="active"><a href="#">Imagem (Upload/DB)</a></li>
-	<li><a href="crud_area.php">CRUD &Aacute;rea</a></li>
+    <li><a href="#">P&aacute;gina 2</a></li>
+	<li class="active"><a href="crud_area.php">CRUD &Aacute;rea</a></li>
   </ul>
   <br><br>
   <div class="row">
@@ -52,30 +52,34 @@
 					</div>";
 		}
 		?>
-		<h1>Upload do Arquivo</h1>
-		<form action="pagina2.php" method="post" enctype="multipart/form-data"><br><br>
-			<input type="file" name="ArquivoUploaded" id="ArquivoUploaded"><br><br>
-			<input type="submit" value="Enviar Imagem" name="submit">
-		</form>
-		<br><br>
-		
-		<table class="table">
+		<form method='post'>
+        <table class="table">
 			<thead>
-				<th>C&oacute;digo</th><th>T&iacute;tulo</th><th>Imagem</th>
+			  <tr>
+				<th>C&oacute;digo</th>
+				<th>&Aacute;rea</th>
+				<th>Selecionar</th>
+			  </tr>
 			</thead>
 			<tbody>
-			<?php
-			if(isset($produtos)){
-				foreach($produtos as $produto){
-					echo 	'<tr><td>'.
-							$produto['codImagem'].'</td><td>'.
-							$produto['tituloImagem'].'</td><td>'.
-							'<img width="30%" src="data:image/jpeg;base64,'.base64_encode($produto['bitmapImagem']).'" /></td></tr>'."\n";
-				}
-			}
-			?>
+			  <?php
+			  foreach($areas as $area){
+				echo "	<tr>
+						<td>{$area['codArea']}</td>
+						<td>{$area['descricao']}</td>
+						<td class='text-center'><input type='radio' name='codArea' value='{$area['codArea']}'></td>
+										    
+					</tr>";
+			  }		
+			  ?>
+			  <tr>
+				<td colspan='2' class='text-center'><input type="submit" class="btn btn-primary" name='nova_area' value='Nova &Aacute;rea'></td>
+				<td colspan='2' class='text-center'><input type="submit" class="btn btn-default" name='editar_area' value='Editar &Aacute;rea Selecionada'></td>
+				<td colspan='2' class='text-center'><input type="submit" class="btn btn-danger" name='apagar_area' value='Apagar &Aacute;rea Selecionada'></td>
+			  </tr>
 			</tbody>
 		</table>
+		</form>
     </div>
   </div>
 </div>

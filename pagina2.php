@@ -7,7 +7,7 @@ ini_set ('odbc.defaultlrl', 9000000);//muda configuração do PHP para trabalhar
 
 session_start();
 
-if(!$_SESSION['idUsuario']){
+if(!$_SESSION['codProfessor']){
 	header('Location: index.php');
 }else{
 	require('functions/funcoes_db.php');
@@ -27,15 +27,12 @@ if(isset($_FILES['ArquivoUploaded'])){
 		$fileParaDB = fread($file, filesize($_FILES['ArquivoUploaded']['tmp_name']));
 		fclose($file);
 		
-		$stmt = db_prepare($db_resource,'INSERT INTO Produto 
-										(nomeProduto, precProduto, idCategoria, ativoProduto, imagem) 
+		$stmt = db_prepare($db_resource,'INSERT INTO Imagem 
+										(tituloImagem, bitmapImagem) 
 										VALUES 
-										(?,?,?,?,?)');			 
-		if(db_execute($stmt, array('Teste de Imagem',
-								10.00,
-								1,
-								true,
-								$fileParaDB))){
+										(?,?)');			 
+		if(db_execute($stmt, array(	'Teste',
+						$fileParaDB))){
 									
 			$msg_sucesso .= '<br>Imagem armazenada no DB';					
 		}else{
@@ -53,9 +50,9 @@ if(isset($_FILES['ArquivoUploaded'])){
 	}
 }
 
-$q = db_consulta($db_resource,'SELECT * FROM Produto');
+$q = db_consulta($db_resource,'SELECT * FROM Imagem');
 while($r = db_le_resultado($q)){
-	$produtos[$r['idProduto']] = $r;
+	$produtos[$r['codImagem']] = $r;
 }
 
 include('templates/pagina2_template.php');
